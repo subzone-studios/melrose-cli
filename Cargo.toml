@@ -2,8 +2,13 @@
 name = "melrose_cli"
 version = "0.1.0"
 edition = "2024"
+autobins = false
+
+[[bin]]
+name = "melrose"
+path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.104"
-clap = { version = "4.6.6", features = ["derive", "wrap_help", "cargo", "env"] }
+clap = { version = "4.6.6", features = ["cargo", "derive", "env", "wrap_help"] }
 paste = "1.0.15"
