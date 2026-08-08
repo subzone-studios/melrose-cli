@@ -1,4 +1,6 @@
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{Parser, Subcommand};
+
+use crate::domain::GeneratorContext;
 
 #[derive(Parser)]
 #[command(long_about, about, version)]
@@ -32,29 +34,34 @@ pub enum GenerateSubcommand {
     },
 
     #[command(long_about, about)]
-    Service {
-        #[arg(value_name = "SERVICE")]
-        service_name: String,
-
+    Component {
         #[arg(value_name = "FEATURE")]
         feature_name: String,
+
+        #[arg(value_name = "COMPONENT")]
+        component_name: String,
+
+        #[arg(short = 'c', value_enum)]
+        context: GeneratorContext,
+    },
+
+    #[command(long_about, about)]
+    Service {
+        #[arg(value_name = "FEATURE")]
+        feature_name: String,
+
+        #[arg(value_name = "SERVICE")]
+        service_name: String,
     },
 
     #[command(long_about, about)]
     Controller {
-        #[arg(value_name = "CONTROLLER")]
-        service_name: String,
-
         #[arg(value_name = "FEATURE")]
         feature_name: String,
-    },
-}
 
-#[derive(ValueEnum, Clone)]
-pub enum GeneratorContext {
-    Client,
-    Server,
-    Shared,
+        #[arg(value_name = "CONTROLLER")]
+        controller_name: String,
+    },
 }
 
 impl Cli {
